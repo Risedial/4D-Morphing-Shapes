@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from ‘react’;
-import { ChevronDown, ChevronUp, RotateCcw, Shuffle, Settings, Palette, Zap, Target, Video } from ‘lucide-react’;
+import React, { useRef, useEffect, useState } from “react”;
+import { ChevronDown, ChevronUp, RotateCcw, Shuffle, Settings, Palette, Zap, Target, Video } from “lucide-react”;
 
 const MorphingContours4D = () => {
 const canvasRef = useRef(null);
@@ -9,7 +9,7 @@ const timeRef = useRef(0);
 // Core Parameters State
 const [params, setParams] = useState({
 // Main Controls
-visualTheme: ‘Ocean Currents’,
+visualTheme: “Ocean Currents”,
 animationSpeed: 1.0,
 shapeCount: 3,
 detailLevel: 0.6,
@@ -18,13 +18,13 @@ spread: 1.0,
 
 ```
 // Colors & Appearance
-backgroundColor: '#F0EEE6',
-lineColor: '#282828',
+backgroundColor: "#F0EEE6",
+lineColor: "#282828",
 lineTransparency: 0.6,
 lineThickness: 1.0,
 
 // Motion Style
-flowType: 'Smooth Waves',
+flowType: "Smooth Waves",
 direction: 0.5,
 rhythm: 0.5,
 
@@ -56,48 +56,48 @@ const [showExpertMode, setShowExpertMode] = useState(false);
 // Export state
 const [isExporting, setIsExporting] = useState(false);
 const [exportProgress, setExportProgress] = useState(0);
-const [exportStatus, setExportStatus] = useState(’’);
+const [exportStatus, setExportStatus] = useState(””);
 
 // Visual Themes
 const themes = {
-‘Gentle Waves’: {
+“Gentle Waves”: {
 animationSpeed: 0.5,
 fourDInfluence: 0.7,
 morphingIntensity: 0.6,
-backgroundColor: ‘#F5F3F0’,
-lineColor: ‘#4A5568’,
+backgroundColor: “#F5F3F0”,
+lineColor: “#4A5568”,
 lineTransparency: 0.4
 },
-‘Ocean Currents’: {
+“Ocean Currents”: {
 animationSpeed: 1.0,
 fourDInfluence: 1.0,
 morphingIntensity: 1.0,
-backgroundColor: ‘#F0EEE6’,
-lineColor: ‘#2D3748’,
+backgroundColor: “#F0EEE6”,
+lineColor: “#2D3748”,
 lineTransparency: 0.6
 },
-‘Storm Energy’: {
+“Storm Energy”: {
 animationSpeed: 2.0,
 fourDInfluence: 1.5,
 morphingIntensity: 1.4,
-backgroundColor: ‘#E2E8F0’,
-lineColor: ‘#1A202C’,
+backgroundColor: “#E2E8F0”,
+lineColor: “#1A202C”,
 lineTransparency: 0.8
 },
-‘Minimal Zen’: {
+“Minimal Zen”: {
 animationSpeed: 0.3,
 fourDInfluence: 0.5,
 morphingIntensity: 0.4,
-backgroundColor: ‘#FFFEF7’,
-lineColor: ‘#718096’,
+backgroundColor: “#FFFEF7”,
+lineColor: “#718096”,
 lineTransparency: 0.3
 },
-‘Cosmic Dance’: {
+“Cosmic Dance”: {
 animationSpeed: 1.5,
 fourDInfluence: 1.8,
 morphingIntensity: 1.6,
-backgroundColor: ‘#FAF5FF’,
-lineColor: ‘#553C9A’,
+backgroundColor: “#FAF5FF”,
+lineColor: “#553C9A”,
 lineTransparency: 0.7
 }
 };
@@ -144,17 +144,17 @@ const canvas = canvasRef.current;
 if (!canvas) return;
 
 ```
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext("2d");
 const dpr = window.devicePixelRatio || 1;
 
 // Set up high-DPI rendering
 canvas.width = 400 * dpr;
 canvas.height = 400 * dpr;
-canvas.style.width = '400px';
-canvas.style.height = '400px';
+canvas.style.width = "400px";
+canvas.style.height = "400px";
 ctx.scale(dpr, dpr);
 ctx.imageSmoothingEnabled = true;
-ctx.imageSmoothingQuality = 'high';
+ctx.imageSmoothingQuality = "high";
 
 const animate = () => {
   // Clear canvas
@@ -165,7 +165,7 @@ const animate = () => {
   timeRef.current += params.timeIncrement * params.animationSpeed;
   const time = timeRef.current;
   
-  const centerX = 170; // shifted further left for better centering
+  const centerX = 170;
   const centerY = 200;
   
   // Generate shapes
@@ -201,10 +201,10 @@ const animate = () => {
       const r = parseInt(params.lineColor.slice(1, 3), 16);
       const g = parseInt(params.lineColor.slice(3, 5), 16);
       const b = parseInt(params.lineColor.slice(5, 7), 16);
-      ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${finalOpacity})`;
+      ctx.strokeStyle = "rgba(" + r + ", " + g + ", " + b + ", " + finalOpacity + ")";
       ctx.lineWidth = params.lineThickness;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
       
       // Begin path
       ctx.beginPath();
@@ -287,13 +287,13 @@ setExpandedSections(prev => ({
 const getLoopDuration = () => {
 const baseTimeForLoop = (Math.PI * 2) / (params.timeIncrement * params.animationSpeed);
 const totalFrames = Math.ceil(baseTimeForLoop);
-const durationSeconds = totalFrames / 60; // 60fps
+const durationSeconds = totalFrames / 60;
 return { totalFrames, durationSeconds };
 };
 
 const exportVideo = async () => {
 setIsExporting(true);
-setExportStatus(‘Preparing video export…’);
+setExportStatus(“Preparing video export…”);
 setExportProgress(0);
 
 ```
@@ -301,16 +301,16 @@ try {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   const resolution = isMobile ? 1080 : 1440;
   
-  const exportCanvas = document.createElement('canvas');
-  const exportCtx = exportCanvas.getContext('2d');
+  const exportCanvas = document.createElement("canvas");
+  const exportCtx = exportCanvas.getContext("2d");
   exportCanvas.width = resolution;
   exportCanvas.height = resolution;
   exportCtx.imageSmoothingEnabled = true;
-  exportCtx.imageSmoothingQuality = 'high';
+  exportCtx.imageSmoothingQuality = "high";
   
   const scaleFactor = resolution / 400;
   
-  setExportStatus('Starting video recording...');
+  setExportStatus("Starting video recording...");
   setExportProgress(5);
 
   const stream = exportCanvas.captureStream(60);
@@ -319,20 +319,20 @@ try {
   let mimeType;
   let fileExtension;
   
-  if (MediaRecorder.isTypeSupported('video/webm; codecs=vp9')) {
-    mimeType = 'video/webm; codecs=vp9';
-    fileExtension = 'webm';
-  } else if (MediaRecorder.isTypeSupported('video/webm; codecs=vp8')) {
-    mimeType = 'video/webm; codecs=vp8';
-    fileExtension = 'webm';
-  } else if (MediaRecorder.isTypeSupported('video/webm')) {
-    mimeType = 'video/webm';
-    fileExtension = 'webm';
-  } else if (MediaRecorder.isTypeSupported('video/mp4')) {
-    mimeType = 'video/mp4';
-    fileExtension = 'mp4';
+  if (MediaRecorder.isTypeSupported("video/webm; codecs=vp9")) {
+    mimeType = "video/webm; codecs=vp9";
+    fileExtension = "webm";
+  } else if (MediaRecorder.isTypeSupported("video/webm; codecs=vp8")) {
+    mimeType = "video/webm; codecs=vp8";
+    fileExtension = "webm";
+  } else if (MediaRecorder.isTypeSupported("video/webm")) {
+    mimeType = "video/webm";
+    fileExtension = "webm";
+  } else if (MediaRecorder.isTypeSupported("video/mp4")) {
+    mimeType = "video/mp4";
+    fileExtension = "mp4";
   } else {
-    throw new Error('No supported video format found in this browser');
+    throw new Error("No supported video format found in this browser");
   }
   
   const mediaRecorder = new MediaRecorder(stream, {
@@ -349,7 +349,7 @@ try {
 
   // Request data more frequently for better reliability
   mediaRecorder.start(100);
-  setExportStatus('Recording animation loop...');
+  setExportStatus("Recording animation loop...");
   setExportProgress(10);
 
   const { totalFrames, durationSeconds } = getLoopDuration();
@@ -393,10 +393,10 @@ try {
           const r = parseInt(params.lineColor.slice(1, 3), 16);
           const g = parseInt(params.lineColor.slice(3, 5), 16);
           const b = parseInt(params.lineColor.slice(5, 7), 16);
-          exportCtx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${finalOpacity})`;
+          exportCtx.strokeStyle = "rgba(" + r + ", " + g + ", " + b + ", " + finalOpacity + ")";
           exportCtx.lineWidth = params.lineThickness * scaleFactor;
-          exportCtx.lineCap = 'round';
-          exportCtx.lineJoin = 'round';
+          exportCtx.lineCap = "round";
+          exportCtx.lineJoin = "round";
           
           exportCtx.beginPath();
           
@@ -445,23 +445,23 @@ try {
     
     // Stop recording after all frames are rendered
     mediaRecorder.stop();
-    setExportStatus('Processing video...');
+    setExportStatus("Processing video...");
     setExportProgress(80);
   };
 
   // Handle recording completion
   mediaRecorder.onstop = () => {
     setExportProgress(90);
-    setExportStatus('Finalizing video...');
+    setExportStatus("Finalizing video...");
     
     const videoBlob = new Blob(chunks, { type: mimeType });
     
     // Use correct file extension based on actual format
     const url = URL.createObjectURL(videoBlob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = `morphing-contours-${resolution}p-${Date.now()}.${fileExtension}`;
-    a.style.display = 'none';
+    a.download = "morphing-contours-" + resolution + "p-" + Date.now() + "." + fileExtension;
+    a.style.display = "none";
     
     document.body.appendChild(a);
     a.click();
@@ -470,22 +470,22 @@ try {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     
     setExportProgress(100);
-    setExportStatus(`${resolution}p ${fileExtension.toUpperCase()} video exported! (${Math.round((maxFrames / 60))}s)`);
+    setExportStatus(resolution + "p " + fileExtension.toUpperCase() + " video exported! (" + Math.round((maxFrames / 60)) + "s)");
     
     setTimeout(() => {
       setIsExporting(false);
       setExportProgress(0);
-      setExportStatus('');
+      setExportStatus("");
     }, 3000);
   };
 
   mediaRecorder.onerror = (event) => {
-    console.error('MediaRecorder error:', event.error);
-    setExportStatus('Recording failed. Please try again.');
+    console.error("MediaRecorder error:", event.error);
+    setExportStatus("Recording failed. Please try again.");
     setTimeout(() => {
       setIsExporting(false);
       setExportProgress(0);
-      setExportStatus('');
+      setExportStatus("");
     }, 3000);
   };
 
@@ -493,12 +493,12 @@ try {
   renderLoop();
 
 } catch (error) {
-  console.error('Video export failed:', error);
-  setExportStatus(`Video export failed: ${error.message}`);
+  console.error("Video export failed:", error);
+  setExportStatus("Video export failed: " + error.message);
   setTimeout(() => {
     setIsExporting(false);
     setExportProgress(0);
-    setExportStatus('');
+    setExportStatus("");
   }, 5000);
 }
 ```
@@ -514,9 +514,9 @@ const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + mi
 // Generate random pleasant background colors
 const randomBackgroundColor = () => {
   const backgrounds = [
-    '#F0EEE6', '#F5F3F0', '#E2E8F0', '#FFFEF7', '#FAF5FF', 
-    '#FEF7F0', '#F0FDF4', '#FFFBEB', '#F3F4F6', '#FDF2F8',
-    '#ECFDF5', '#FEF3C7', '#DBEAFE', '#E0E7FF', '#FCE7F3'
+    "#F0EEE6", "#F5F3F0", "#E2E8F0", "#FFFEF7", "#FAF5FF", 
+    "#FEF7F0", "#F0FDF4", "#FFFBEB", "#F3F4F6", "#FDF2F8",
+    "#ECFDF5", "#FEF3C7", "#DBEAFE", "#E0E7FF", "#FCE7F3"
   ];
   return backgrounds[randomInt(0, backgrounds.length - 1)];
 };
@@ -524,15 +524,15 @@ const randomBackgroundColor = () => {
 // Generate random contrasting line colors
 const randomLineColor = () => {
   const lineColors = [
-    '#282828', '#4A5568', '#2D3748', '#1A202C', '#553C9A',
-    '#B91C1C', '#059669', '#D97706', '#7C3AED', '#DC2626',
-    '#0369A1', '#7C2D12', '#166534', '#92400E', '#5B21B6'
+    "#282828", "#4A5568", "#2D3748", "#1A202C", "#553C9A",
+    "#B91C1C", "#059669", "#D97706", "#7C3AED", "#DC2626",
+    "#0369A1", "#7C2D12", "#166534", "#92400E", "#5B21B6"
   ];
   return lineColors[randomInt(0, lineColors.length - 1)];
 };
 
 // Randomize flow types
-const flowTypes = ['Smooth Waves', 'Rippling Pulses', 'Organic Breathing', 'Chaotic Dance'];
+const flowTypes = ["Smooth Waves", "Rippling Pulses", "Organic Breathing", "Chaotic Dance"];
 const randomFlowType = flowTypes[randomInt(0, flowTypes.length - 1)];
 
 // First apply a random theme as base
@@ -571,7 +571,7 @@ setParams(prev => ({
 };
 
 const resetToDefaults = () => {
-applyTheme(‘Ocean Currents’);
+applyTheme(“Ocean Currents”);
 setParams(prev => ({
 …prev,
 shapeCount: 3,
@@ -654,7 +654,7 @@ the emptying and return cycles through invisible mathematical currents.
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
                 className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${exportProgress}%` }}
+                style={{ width: exportProgress + "%" }}
               ></div>
             </div>
             <p className="text-xs text-gray-600 text-center">{exportStatus}</p>
@@ -712,7 +712,7 @@ the emptying and return cycles through invisible mathematical currents.
           max="100"
           step="1"
           value={valueToPercentage(params.animationSpeed, 0.1, 3)}
-          onChange={(e) => updateParam('animationSpeed', percentageToValue(parseInt(e.target.value), 0.1, 3))}
+          onChange={(e) => updateParam("animationSpeed", percentageToValue(parseInt(e.target.value), 0.1, 3))}
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
         />
         <div className="relative flex justify-between text-xs text-gray-500 mt-1">
@@ -734,13 +734,13 @@ the emptying and return cycles through invisible mathematical currents.
           max="5"
           step="1"
           value={params.shapeCount}
-          onChange={(e) => updateParam('shapeCount', parseInt(e.target.value))}
+          onChange={(e) => updateParam("shapeCount", parseInt(e.target.value))}
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
         />
         <div className="relative flex justify-between text-xs text-gray-500 mt-1">
-          <span>*</span>
+          <span>1</span>
           <span className="absolute left-1/2 transform -translate-x-1/2 font-bold">{calculatePercentage(params.shapeCount, 1, 5)}%</span>
-          <span>*****</span>
+          <span>5</span>
         </div>
       </div>
 
@@ -755,7 +755,7 @@ the emptying and return cycles through invisible mathematical currents.
           max="100"
           step="1"
           value={valueToPercentage(params.detailLevel, 0.1, 1)}
-          onChange={(e) => updateParam('detailLevel', percentageToValue(parseInt(e.target.value), 0.1, 1))}
+          onChange={(e) => updateParam("detailLevel", percentageToValue(parseInt(e.target.value), 0.1, 1))}
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
         />
         <div className="relative flex justify-between text-xs text-gray-500 mt-1">
@@ -776,7 +776,7 @@ the emptying and return cycles through invisible mathematical currents.
           max="100"
           step="1"
           value={valueToPercentage(params.size, 0.5, 2.5)}
-          onChange={(e) => updateParam('size', percentageToValue(parseInt(e.target.value), 0.5, 2.5))}
+          onChange={(e) => updateParam("size", percentageToValue(parseInt(e.target.value), 0.5, 2.5))}
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
         />
         <div className="relative flex justify-between text-xs text-gray-500 mt-1">
@@ -797,7 +797,7 @@ the emptying and return cycles through invisible mathematical currents.
           max="100"
           step="1"
           value={valueToPercentage(params.spread, 0.3, 1.8)}
-          onChange={(e) => updateParam('spread', percentageToValue(parseInt(e.target.value), 0.3, 1.8))}
+          onChange={(e) => updateParam("spread", percentageToValue(parseInt(e.target.value), 0.3, 1.8))}
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
         />
         <div className="relative flex justify-between text-xs text-gray-500 mt-1">
@@ -813,7 +813,7 @@ the emptying and return cycles through invisible mathematical currents.
       {/* Colors & Appearance */}
       <div className="border border-gray-200 rounded-lg">
         <button
-          onClick={() => toggleSection('colors')}
+          onClick={() => toggleSection("colors")}
           className="w-full flex items-center justify-between p-3 text-left hover:bg-gray-50 transition-colors"
         >
           <span className="font-medium text-gray-700">Colors & Appearance</span>
@@ -827,7 +827,7 @@ the emptying and return cycles through invisible mathematical currents.
               <input
                 type="color"
                 value={params.backgroundColor}
-                onChange={(e) => updateParam('backgroundColor', e.target.value)}
+                onChange={(e) => updateParam("backgroundColor", e.target.value)}
                 className="w-full h-10 rounded-lg border border-gray-300 cursor-pointer"
               />
             </div>
@@ -837,7 +837,7 @@ the emptying and return cycles through invisible mathematical currents.
               <input
                 type="color"
                 value={params.lineColor}
-                onChange={(e) => updateParam('lineColor', e.target.value)}
+                onChange={(e) => updateParam("lineColor", e.target.value)}
                 className="w-full h-10 rounded-lg border border-gray-300 cursor-pointer"
               />
             </div>
@@ -850,7 +850,7 @@ the emptying and return cycles through invisible mathematical currents.
                 max="100"
                 step="1"
                 value={valueToPercentage(params.lineTransparency, 0.1, 1)}
-                onChange={(e) => updateParam('lineTransparency', percentageToValue(parseInt(e.target.value), 0.1, 1))}
+                onChange={(e) => updateParam("lineTransparency", percentageToValue(parseInt(e.target.value), 0.1, 1))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
               />
               <div className="relative flex justify-between text-xs text-gray-500 mt-1">
@@ -868,7 +868,7 @@ the emptying and return cycles through invisible mathematical currents.
                 max="100"
                 step="1"
                 value={valueToPercentage(params.lineThickness, 0.5, 3)}
-                onChange={(e) => updateParam('lineThickness', percentageToValue(parseInt(e.target.value), 0.5, 3))}
+                onChange={(e) => updateParam("lineThickness", percentageToValue(parseInt(e.target.value), 0.5, 3))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
               />
               <div className="relative flex justify-between text-xs text-gray-500 mt-1">
@@ -884,7 +884,7 @@ the emptying and return cycles through invisible mathematical currents.
       {/* Advanced Energy */}
       <div className="border border-gray-200 rounded-lg">
         <button
-          onClick={() => toggleSection('advanced')}
+          onClick={() => toggleSection("advanced")}
           className="w-full flex items-center justify-between p-3 text-left hover:bg-gray-50 transition-colors"
         >
           <span className="font-medium text-gray-700">Advanced Energy</span>
@@ -901,7 +901,7 @@ the emptying and return cycles through invisible mathematical currents.
                 max="100"
                 step="1"
                 value={valueToPercentage(params.fourDInfluence, 0, 2)}
-                onChange={(e) => updateParam('fourDInfluence', percentageToValue(parseInt(e.target.value), 0, 2))}
+                onChange={(e) => updateParam("fourDInfluence", percentageToValue(parseInt(e.target.value), 0, 2))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
               />
               <div className="relative flex justify-between text-xs text-gray-500 mt-1">
@@ -919,7 +919,7 @@ the emptying and return cycles through invisible mathematical currents.
                 max="100"
                 step="1"
                 value={valueToPercentage(params.morphingIntensity, 0.1, 2)}
-                onChange={(e) => updateParam('morphingIntensity', percentageToValue(parseInt(e.target.value), 0.1, 2))}
+                onChange={(e) => updateParam("morphingIntensity", percentageToValue(parseInt(e.target.value), 0, 2))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
               />
               <div className="relative flex justify-between text-xs text-gray-500 mt-1">
